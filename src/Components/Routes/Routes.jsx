@@ -1,0 +1,44 @@
+import { createBrowserRouter } from "react-router";
+import Root from "../Root/Root";
+import NotFound from "../../Pages/NotFound/NotFound";
+import Home from "../../Pages/Home/Home";
+import Login from "../../Pages/Login/Login";
+import Signup from "../../Pages/Signup/Signup";
+import Profile from "../../Pages/Profile/Profile";
+import ForgotPassword from "../../Pages/ForgotPassword/ForgotPassword";
+import PrivateRoute from "./PrivateRoutes";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root></Root>,
+    children: [
+      {
+        index: true,
+        element: <Home></Home>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+          path: "register",
+          element:<Signup></Signup>
+        },
+        {
+            path: "profile",
+            element:(<PrivateRoute>
+              <Profile />
+            </PrivateRoute>)
+        },
+        {
+            path: "forgot-password",
+            element:<ForgotPassword></ForgotPassword>
+        }
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFound></NotFound>,
+  },
+]);
