@@ -8,7 +8,7 @@ const Root = () => {
     <div>
       <div className="w-11/12 mx-auto">
         <div className="flex flex-col">
-          <header>
+          <header className="pb-10">
             <Navbar></Navbar>
           </header>
           <main className="mt-1 flex-1 h-screen">
@@ -16,7 +16,9 @@ const Root = () => {
           </main>
         </div>
       </div>
-      <Footer></Footer>
+      <div className="pt-10">
+        <Footer></Footer>
+      </div>
     </div>
   );
 };
