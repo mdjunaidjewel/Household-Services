@@ -17,7 +17,7 @@ const Home = () => {
       <div className="py-10">
         <WhyChooseUs></WhyChooseUs>
       </div>
-      <div>
+      <div className="py-10">
         <UserFeedback></UserFeedback>
       </div>
     </div>
