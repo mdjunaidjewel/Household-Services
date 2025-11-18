@@ -20,12 +20,28 @@ const ServiceDetails = () => {
 
   const [open, setOpen] = useState(false);
 
+  // Handle Book Now click
+  const handleBookNowClick = () => {
+    if (user && user.email) {
+      setOpen(true);
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "You must be logged in to book a service.",
+        confirmButtonText: "Login / Register",
+      });
+    }
+  };
+
+  // Handle booking form submit
   const handleBooking = async (e) => {
     e.preventDefault();
 
     const booking = {
       userEmail: user?.email,
       serviceId: _id,
+      serviceName: service_name, // store service name
       bookingDate: e.target.date.value,
       price: price_range,
     };
@@ -53,19 +69,6 @@ const ServiceDetails = () => {
     } catch (error) {
       console.error(error);
       Swal.fire("Booking failed. Try again.");
-    }
-  };
-
-  const handleBookNowClick = () => {
-    if (user && user.email) {
-      setOpen(true);
-    } else {
-      Swal.fire({
-        icon: "warning",
-        title: "Login Required",
-        text: "You must be logged in to book a service.",
-        confirmButtonText: "Login / Register",
-      });
     }
   };
 
@@ -135,7 +138,7 @@ const ServiceDetails = () => {
             <div className="mt-10">
               <button
                 onClick={handleBookNowClick}
-                className=" cursor-pointer w-full md:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-semibold rounded-xl shadow-lg transition-all"
+                className="cursor-pointer w-full md:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-semibold rounded-xl shadow-lg transition-all"
               >
                 Book Now
               </button>
