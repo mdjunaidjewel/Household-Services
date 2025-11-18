@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaHandsHelping, FaShieldAlt, FaClock } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const WhyChooseUs = () => {
   const features = [
@@ -23,9 +25,29 @@ const WhyChooseUs = () => {
     },
   ];
 
+  // Initialize AOS
+  useEffect(() => {
+    if (!AOS.__initialized) {
+      AOS.init({
+        duration: 800,
+        easing: "ease-in-out",
+        once: false,
+        mirror: true,
+      });
+      AOS.__initialized = true;
+    } else {
+      AOS.refresh();
+    }
+  }, []);
+
   return (
     <section className="py-16 px-4 md:px-10 bg-gray-50">
-      <div className="max-w-7xl mx-auto text-center mb-12">
+      {/* Section Header */}
+      <div
+        className="max-w-7xl mx-auto text-center mb-12"
+        data-aos="fade-down"
+        data-aos-delay="50"
+      >
         <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-800">
           Why <span className="text-yellow-400">Choose Us</span>
         </h2>
@@ -35,11 +57,16 @@ const WhyChooseUs = () => {
         </p>
       </div>
 
+      {/* Feature Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {features.map((feature, index) => (
           <div
             key={index}
             className="bg-white rounded-xl shadow-md p-8 flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300"
+            data-aos="fade-up"
+            data-aos-delay={50 + index * 100} // staggered delay
+            data-aos-offset="120"
+            data-aos-anchor-placement="top-bottom"
           >
             {feature.icon}
             <h3 className="text-xl font-semibold mb-2 text-gray-900">
