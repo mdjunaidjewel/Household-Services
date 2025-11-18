@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router";
 
 function Services() {
   const [services, setServices] = useState([]);
@@ -14,9 +15,7 @@ function Services() {
       {/* Headline */}
       <h1 className="text-3xl md:text-5xl font-bold text-center mb-16">
         <span className="text-gray-800">Available</span>{" "}
-        <span className=" text-yellow-600">
-          Services
-        </span>
+        <span className=" text-yellow-600">Services</span>
       </h1>
 
       {/* Services Grid */}
@@ -45,9 +44,12 @@ function Services() {
               </div>
 
               {/* Explore Button */}
-              <button className="mt-auto w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition-colors duration-300 cursor-pointer">
+              <NavLink
+                to={`/service-details/${service._id}`}
+                className="text-center mt-auto w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition-colors duration-300 cursor-pointer"
+              >
                 Explore
-              </button>
+              </NavLink>
             </div>
           </div>
         ))}
