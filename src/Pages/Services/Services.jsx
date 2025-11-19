@@ -36,6 +36,9 @@ function Services() {
         text: "Please login or create an account to view details.",
         icon: "warning",
         confirmButtonText: "OK",
+      }).then(() => {
+        // Login page-এ navigate করবে
+        navigate("/login");
       });
       return;
     }
@@ -51,7 +54,7 @@ function Services() {
   }
 
   return (
-    <div className="py-10 max-w-7xl mx-auto">
+    <div className="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1
         className="text-3xl md:text-5xl font-bold text-center mb-16"
         data-aos="fade-down"
@@ -71,16 +74,16 @@ function Services() {
             data-aos-anchor-placement="top-bottom"
           >
             <img
-              className="w-full h-60 object-cover"
+              className="w-full h-40 md:h-48 object-cover"
               src={service.image}
               alt={service.service_name}
             />
             <div className="p-5 flex flex-col flex-1">
               <div className="mb-4">
-                <h2 className="text-2xl font-semibold mb-2 text-gray-600">
+                <h2 className="text-xl md:text-2xl font-semibold mb-2 text-gray-600">
                   {service.service_name}
                 </h2>
-                <p className="text-gray-400 text-sm md:text-base">
+                <p className="text-gray-500 text-sm md:text-base line-clamp-3">
                   {service.description}
                 </p>
                 <p className="mt-2 font-semibold text-yellow-700">

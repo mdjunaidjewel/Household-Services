@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 import { FaStar } from "react-icons/fa";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../Components/AuthContext/AuthProvider";
 import Swal from "sweetalert2";
 
@@ -20,17 +20,56 @@ const ServiceDetails = () => {
   } = service;
 
   const [open, setOpen] = useState(false);
+  const [booked, setBooked] = useState(false);
+  const [loadingBooked, setLoadingBooked] = useState(true);
+
+  // check if logged-in user already booked
+  useEffect(() => {
+    if (user?.email) {
+      fetch(`http://localhost:3000/bookings?email=${user.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const alreadyBooked = data.some((b) => b.serviceId === _id);
+          setBooked(alreadyBooked);
+          setLoadingBooked(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoadingBooked(false);
+        });
+    } else {
+      setLoadingBooked(false);
+    }
+  }, [user, _id]);
+
+  const isProvider = user?.email === provider_email;
 
   const handleBookNowClick = () => {
-    if (user?.email) {
-      setOpen(true);
-    } else {
+    if (!user?.email) {
       Swal.fire({
         icon: "warning",
         title: "Login Required",
         text: "You must be logged in to book a service.",
       });
+      return;
     }
+    if (isProvider) {
+      Swal.fire({
+        icon: "info",
+        title: "Provider Cannot Book",
+        text: "You cannot book your own service.",
+      });
+      return;
+    }
+    if (booked) {
+      Swal.fire({
+        icon: "info",
+        title: "Already Booked",
+        text: "You have already booked this service.",
+      });
+      return;
+    }
+    setOpen(true);
   };
 
   const handleBooking = async (e) => {
@@ -59,6 +98,7 @@ const ServiceDetails = () => {
           showConfirmButton: false,
         });
         setOpen(false);
+        setBooked(true);
       } else {
         Swal.fire("Booking failed. Try again.");
       }
@@ -120,14 +160,25 @@ const ServiceDetails = () => {
           </div>
 
           {/* Book Button */}
-          <div className="mt-4">
-            <button
-              onClick={handleBookNowClick}
-              className="w-full md:w-auto px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm md:text-base font-semibold rounded-lg shadow transition-all cursor-pointer"
-            >
-              Book Now
-            </button>
-          </div>
+          {!loadingBooked && (
+            <div className="mt-4">
+              <button
+                onClick={handleBookNowClick}
+                disabled={booked || isProvider}
+                className={`w-full md:w-auto px-5 py-2 text-white text-sm md:text-base font-semibold rounded-lg shadow transition-all cursor-pointer ${
+                  booked || isProvider
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-indigo-600 hover:bg-indigo-700"
+                }`}
+              >
+                {isProvider
+                  ? "Cannot Book Your Own Service"
+                  : booked
+                  ? "Already Booked"
+                  : "Book Now"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

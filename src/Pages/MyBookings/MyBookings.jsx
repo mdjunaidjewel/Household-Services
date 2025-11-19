@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Components/AuthContext/AuthProvider";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaStar } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const MyBookings = () => {
@@ -32,9 +32,7 @@ const MyBookings = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/bookings/${id}`, {
-          method: "DELETE",
-        })
+        fetch(`http://localhost:3000/bookings/${id}`, { method: "DELETE" })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -48,6 +46,43 @@ const MyBookings = () => {
           });
       }
     });
+  };
+
+  // 🔹 Handle Rating
+  const handleRating = async (bookingId, ratingValue, serviceId) => {
+    try {
+      // 1️⃣ Update bookings collection
+      const bookingRes = await fetch(
+        `http://localhost:3000/bookings/${bookingId}/rate`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ rating: ratingValue }),
+        }
+      );
+      const bookingData = await bookingRes.json();
+
+      if (bookingData.modifiedCount > 0) {
+        // 2️⃣ Update services collection rating
+        await fetch(`http://localhost:3000/services/${serviceId}/rating`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ rating: ratingValue }),
+        });
+
+        // 3️⃣ UI update
+        setBookings((prev) =>
+          prev.map((b) =>
+            b._id === bookingId ? { ...b, rating: ratingValue } : b
+          )
+        );
+
+        Swal.fire("Success!", "Your rating has been saved.", "success");
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error!", "Failed to save rating.", "error");
+    }
   };
 
   if (!user) {
@@ -84,6 +119,7 @@ const MyBookings = () => {
                   <th>Service Name</th>
                   <th>Booking Date</th>
                   <th>Price</th>
+                  <th>Rating</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -94,6 +130,19 @@ const MyBookings = () => {
                     <td>{b.serviceName || "Service"}</td>
                     <td>{b.bookingDate}</td>
                     <td>{b.price}</td>
+                    <td className="flex gap-1">
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <FaStar
+                          key={i}
+                          className={`cursor-pointer ${
+                            i <= (b.rating || 0)
+                              ? "text-yellow-400"
+                              : "text-gray-300"
+                          }`}
+                          onClick={() => handleRating(b._id, i, b.serviceId)}
+                        />
+                      ))}
+                    </td>
                     <td>
                       <button
                         onClick={() => handleDelete(b._id)}
