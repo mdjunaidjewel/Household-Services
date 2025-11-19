@@ -70,7 +70,7 @@ const Banner = () => {
                 to="services"
                 className="bg-yellow-400 text-black font-bold px-6 py-3 rounded hover:bg-yellow-500 cursor-pointer"
               >
-                Click Here..
+                Explore
               </NavLink>
             </div>
           </div>

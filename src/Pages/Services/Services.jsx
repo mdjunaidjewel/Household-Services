@@ -63,7 +63,7 @@ function Services() {
                 to={`/service-details/${service._id}`}
                 className="text-center mt-auto w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition-colors duration-300 cursor-pointer"
               >
-                Explore
+                View Details
               </NavLink>
             </div>
           </div>
