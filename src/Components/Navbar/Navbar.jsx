@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Components/AuthContext/AuthProvider";
 import Spinner from "../../Components/Spinner/Spinner";
@@ -103,9 +103,9 @@ const Navbar = () => {
         </div>
 
         {/* Logo */}
-        <NavLink to="/" className="btn btn-ghost text-xl ml-2">
+        <Link to="/" className="btn btn-ghost text-xl ml-2">
           Home<span className="text-yellow-700">Pro</span>
-        </NavLink>
+        </Link>
       </div>
 
       {/* Desktop menu */}

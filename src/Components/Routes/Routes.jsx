@@ -7,11 +7,11 @@ import Signup from "../../Pages/Signup/Signup";
 import Profile from "../../Pages/Profile/Profile";
 import ForgotPassword from "../../Pages/ForgotPassword/ForgotPassword";
 import PrivateRoute from "./PrivateRoutes";
-import Services from "../../Pages/Services/Services";
 import AddService from "../../Pages/AddService/AddService";
 import MyServices from "../../Pages/MyServices/MyServices";
 import ServiceDetails from "../../Pages/Services/ServiceDetails";
 import MyBookings from "../../Pages/MyBookings/MyBookings";
+import AllServices from "../../Pages/AllServices/AllServices";
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "services",
-        element: <Services></Services>,
+        element: <AllServices></AllServices>,
       },
       {
         path: "add-service",

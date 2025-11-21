@@ -191,7 +191,7 @@ const AddService = () => {
         {/* Submit */}
         <button
           type="submit"
-          className="w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition-colors"
+          className="cursor-pointer w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition-colors"
         >
           Add Service
         </button>

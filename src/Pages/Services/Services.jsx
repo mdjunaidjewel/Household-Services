@@ -76,16 +76,16 @@ if (loading) {
   }
 
   return (
-    <div className="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-3 max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <h1
-        className="text-3xl md:text-5xl font-bold text-center mb-16"
+        className="text-2xl md:text-5xl font-bold text-center mb-7 sm:mb-16"
         data-aos="fade-down"
       >
         <span className="text-gray-800">Popular</span>{" "}
         <span className="text-yellow-600">Services</span>
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
         {services.map((service, index) => (
           <div
             key={service._id}
