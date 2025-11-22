@@ -144,12 +144,12 @@ const Navbar = () => {
           </button>
         ) : (
           <>
-            <NavLink to="/login" className="btn btn-primary">
+            <Link to="/login" className="btn btn-primary">
               Login
-            </NavLink>
-            <NavLink to="/register" className="btn btn-secondary">
+            </Link>
+            <Link to="/register" className="btn btn-secondary">
               Register
-            </NavLink>
+            </Link>
           </>
         )}
       </div>

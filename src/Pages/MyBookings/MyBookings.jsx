@@ -11,7 +11,7 @@ const MyBookings = () => {
   useEffect(() => {
     if (!user) return;
 
-    fetch(`http://localhost:3000/bookings?email=${user.email}`)
+    fetch(`https://houseservices.vercel.app/bookings?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setBookings(data);
@@ -32,7 +32,9 @@ const MyBookings = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/bookings/${id}`, { method: "DELETE" })
+        fetch(`https://houseservices.vercel.app/bookings/${id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -53,7 +55,7 @@ const MyBookings = () => {
     try {
       // Update bookings collection
       const bookingRes = await fetch(
-        `http://localhost:3000/bookings/${bookingId}/rate`,
+        `https://houseservices.vercel.app/bookings/${bookingId}/rate`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -64,11 +66,14 @@ const MyBookings = () => {
 
       if (bookingData.modifiedCount > 0) {
         // Update services collection rating
-        await fetch(`http://localhost:3000/services/${serviceId}/rating`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ rating: ratingValue }),
-        });
+        await fetch(
+          `https://houseservices.vercel.app/services/${serviceId}/rating`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ rating: ratingValue }),
+          }
+        );
 
         // UI update
         setBookings((prev) =>
@@ -93,17 +98,16 @@ const MyBookings = () => {
     );
   }
 
-if (loading) {
-  return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
-      <div className="radial-progress animate-spin border-yellow-400 border-4 w-8 h-8 mb-3"></div>
-      <p className="text-gray-700 text-base md:text-lg font-medium">
-        Booking Loading...
-      </p>
-    </div>
-  );
-}
-
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <div className="radial-progress animate-spin border-yellow-400 border-4 w-8 h-8 mb-3"></div>
+        <p className="text-gray-700 text-base md:text-lg font-medium">
+          Booking Loading...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen p-5 md:p-10 bg-gradient-to-br from-blue-50 to-indigo-100">

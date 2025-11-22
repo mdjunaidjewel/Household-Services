@@ -11,7 +11,7 @@ const MyServices = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/my-services/${user.email}`)
+    fetch(`https://houseservices.vercel.app/my-services/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
@@ -33,7 +33,9 @@ const MyServices = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/services/${id}`, { method: "DELETE" })
+        fetch(`https://houseservices.vercel.app/services/${id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -70,7 +72,7 @@ const MyServices = () => {
       if (result.isConfirmed) {
         const updatedService = result.value;
 
-        fetch(`http://localhost:3000/services/${service._id}`, {
+        fetch(`https://houseservices.vercel.app/services/${service._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedService),
@@ -101,16 +103,16 @@ const MyServices = () => {
       <p className="text-center mt-10">Please login to see your services.</p>
     );
 
-if (loading) {
-  return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
-      <div className="radial-progress animate-spin border-yellow-400 border-4 w-8 h-8 mb-3"></div>
-      <p className="text-gray-700 text-base md:text-lg font-medium">
-        Loading services...
-      </p>
-    </div>
-  );
-}
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <div className="radial-progress animate-spin border-yellow-400 border-4 w-8 h-8 mb-3"></div>
+        <p className="text-gray-700 text-base md:text-lg font-medium">
+          Loading services...
+        </p>
+      </div>
+    );
+  }
 
   if (services.length === 0)
     return (

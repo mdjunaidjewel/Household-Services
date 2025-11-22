@@ -43,6 +43,7 @@ const Footer = () => {
               <FaGithub />
             </a>
             <a
+              target="_blank"
               href="https://wa.me/+8801755715459"
               className="p-2 bg-gray-800 rounded-full hover:bg-yellow-400 hover:text-gray-900 transition"
             >

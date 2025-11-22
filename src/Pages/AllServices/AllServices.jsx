@@ -9,7 +9,7 @@ const AllServices = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/services") // 🔥 Database API endpoint
+    fetch("https://houseservices.vercel.app/services") // 🔥 Database API endpoint
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {

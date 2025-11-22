@@ -55,8 +55,8 @@ const Login = () => {
       navigate("/", { replace: true });
     } catch (error) {
       switch (error.code) {
-        case "auth/user-not-found":
-          Swal.fire("Error", "No account found with this email.", "error");
+        case "auth/invalid-credential":
+          Swal.fire("Error", "Email or Password Wrong.", "error");
           break;
         case "auth/wrong-password":
           Swal.fire("Error", "Incorrect password.", "error");

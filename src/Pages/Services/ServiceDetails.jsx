@@ -30,7 +30,7 @@ const ServiceDetails = () => {
   // check if logged-in user already booked
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/bookings?email=${user.email}`)
+      fetch(`https://houseservices.vercel.app/bookings?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           const alreadyBooked = data.some((b) => b.serviceId === _id);
@@ -85,7 +85,7 @@ const ServiceDetails = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/bookings", {
+      const res = await fetch("https://houseservices.vercel.app/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(booking),

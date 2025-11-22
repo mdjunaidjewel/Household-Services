@@ -13,7 +13,7 @@ function Services() {
 
   useEffect(() => {
     // Fetch top rated 6 services
-    fetch("http://localhost:3000/services/top")
+    fetch("https://houseservices.vercel.app/services/top")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
